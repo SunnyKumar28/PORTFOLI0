@@ -3,9 +3,10 @@ import { motion } from "framer-motion";
 import { GraduationCap, Calendar, MapPin, Award } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { portfolioData } from "../mock";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
-const About = () => {
+const About = ({ profile, loading, error }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -26,6 +27,32 @@ const About = () => {
       },
     },
   };
+
+  if (loading) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <LoadingSpinner size="large" text="Loading about information..." />
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !profile) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <ErrorMessage 
+            error={error} 
+            title="Failed to load profile information" 
+            showRetry={false}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  const { personal, education } = profile;
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8">
@@ -96,26 +123,26 @@ const About = () => {
               <CardContent className="space-y-4">
                 <div>
                   <h3 className="text-xl font-semibold text-[#E2E2E2] mb-2">
-                    {portfolioData.education.institution}
+                    {education.institution}
                   </h3>
                   <div className="flex items-center text-[#E2E2E2]/60 mb-2">
                     <MapPin size={16} className="mr-2" />
-                    {portfolioData.education.location}
+                    {education.location}
                   </div>
                   <div className="flex items-center text-[#E2E2E2]/60 mb-3">
                     <Calendar size={16} className="mr-2" />
-                    {portfolioData.education.duration}
+                    {education.duration}
                   </div>
                   <p className="text-[#E2E2E2]/70 text-sm mb-4">
-                    {portfolioData.education.description}
+                    {education.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <Badge className="bg-[#6A40E4]/20 text-[#6A40E4] border-[#6A40E4]/30">
-                      {portfolioData.education.degree}
+                      {education.degree}
                     </Badge>
                     <Badge className="bg-[#6A40E4]/20 text-[#6A40E4] border-[#6A40E4]/30 flex items-center">
                       <Award size={14} className="mr-1" />
-                      CGPA: {portfolioData.education.cgpa}
+                      CGPA: {education.cgpa}
                     </Badge>
                   </div>
                 </div>
@@ -134,7 +161,7 @@ const About = () => {
         >
           {[
             { number: "400+", label: "DSA Problems Solved" },
-            { number: "7.9", label: "CGPA" },
+            { number: education.cgpa, label: "CGPA" },
             { number: "10+", label: "Projects Built" },
             { number: "3", label: "Hackathon Wins" },
           ].map((stat, index) => (

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, Phone, ExternalLink } from "lucide-react";
 import { Button } from "./ui/button";
-import { portfolioData } from "../mock";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
-const Hero = () => {
+const Hero = ({ profile, loading, error }) => {
   const [text, setText] = useState("");
   const fullText = "AI/ML Engineer & Full-Stack Developer";
   
@@ -28,6 +29,28 @@ const Hero = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
+        <LoadingSpinner size="large" text="Loading profile..." />
+      </div>
+    );
+  }
+
+  if (error || !profile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
+        <ErrorMessage 
+          error={error} 
+          title="Failed to load profile" 
+          showRetry={false}
+        />
+      </div>
+    );
+  }
+
+  const { personal } = profile;
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
       <div className="max-w-7xl mx-auto text-center">
@@ -46,7 +69,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <span className="bg-gradient-to-r from-[#E2E2E2] via-[#6A40E4] to-[#E2E2E2] bg-clip-text text-transparent">
-              {portfolioData.personal.name}
+              {personal.name}
             </span>
           </motion.h1>
 
@@ -74,7 +97,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            {portfolioData.personal.bio}
+            {personal.bio}
           </motion.p>
 
           {/* Contact Links */}
@@ -85,25 +108,25 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 1 }}
           >
             <motion.a
-              href={`mailto:${portfolioData.personal.email}`}
+              href={`mailto:${personal.email}`}
               className="flex items-center space-x-2 hover:text-[#6A40E4] transition-colors duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
             >
               <Mail size={20} />
-              <span className="hidden sm:inline">{portfolioData.personal.email}</span>
+              <span className="hidden sm:inline">{personal.email}</span>
             </motion.a>
             
             <motion.a
-              href={`tel:${portfolioData.personal.phone}`}
+              href={`tel:${personal.phone}`}
               className="flex items-center space-x-2 hover:text-[#6A40E4] transition-colors duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
             >
               <Phone size={20} />
-              <span className="hidden sm:inline">{portfolioData.personal.phone}</span>
+              <span className="hidden sm:inline">{personal.phone}</span>
             </motion.a>
             
             <motion.a
-              href={portfolioData.personal.github}
+              href={personal.github}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 hover:text-[#6A40E4] transition-colors duration-300"
@@ -114,7 +137,7 @@ const Hero = () => {
             </motion.a>
             
             <motion.a
-              href={portfolioData.personal.linkedin}
+              href={personal.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 hover:text-[#6A40E4] transition-colors duration-300"
@@ -125,7 +148,7 @@ const Hero = () => {
             </motion.a>
             
             <motion.a
-              href={portfolioData.personal.leetcode}
+              href={personal.leetcode}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 hover:text-[#6A40E4] transition-colors duration-300"

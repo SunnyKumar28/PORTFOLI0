@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, Calendar, Code, Target, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { portfolioData } from "../mock";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
-const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
-
+const Projects = ({ projects, loading, error, onRetry }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,6 +28,30 @@ const Projects = () => {
       },
     },
   };
+
+  if (loading) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <LoadingSpinner size="large" text="Loading projects..." />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <ErrorMessage 
+            error={error} 
+            title="Failed to load projects" 
+            onRetry={onRetry}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8">
@@ -60,7 +83,7 @@ const Projects = () => {
           viewport={{ once: true }}
           className="grid lg:grid-cols-2 gap-8"
         >
-          {portfolioData.projects.map((project, index) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project.id}
               variants={itemVariants}
@@ -94,12 +117,12 @@ const Projects = () => {
                           <Github size={16} />
                         </Button>
                       )}
-                      {project.liveDemo && (
+                      {project.live_demo && (
                         <Button
                           variant="outline"
                           size="sm"
                           className="border-[#6A40E4] text-[#6A40E4] hover:bg-[#6A40E4] hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300"
-                          onClick={() => window.open(project.liveDemo, '_blank')}
+                          onClick={() => window.open(project.live_demo, '_blank')}
                         >
                           <ExternalLink size={16} />
                         </Button>
@@ -180,11 +203,11 @@ const Projects = () => {
                         <span>View Code</span>
                       </Button>
                     )}
-                    {project.liveDemo && (
+                    {project.live_demo && (
                       <Button
                         variant="outline"
                         className="border-[#6A40E4] text-[#6A40E4] hover:bg-[#6A40E4] hover:text-white flex items-center space-x-2"
-                        onClick={() => window.open(project.liveDemo, '_blank')}
+                        onClick={() => window.open(project.live_demo, '_blank')}
                       >
                         <ExternalLink size={16} />
                         <span>Live Demo</span>

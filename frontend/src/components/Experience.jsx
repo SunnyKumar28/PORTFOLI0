@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Briefcase, Calendar, ExternalLink, Github } from "lucide-react";
+import { Briefcase, Calendar, Github } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { portfolioData } from "../mock";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
-const Experience = () => {
+const Experience = ({ experiences, loading, error, onRetry }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -27,6 +28,30 @@ const Experience = () => {
       },
     },
   };
+
+  if (loading) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]/50">
+        <div className="max-w-7xl mx-auto text-center">
+          <LoadingSpinner size="large" text="Loading experience..." />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]/50">
+        <div className="max-w-7xl mx-auto">
+          <ErrorMessage 
+            error={error} 
+            title="Failed to load experience data" 
+            onRetry={onRetry}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]/50">
@@ -55,14 +80,14 @@ const Experience = () => {
           viewport={{ once: true }}
           className="space-y-8"
         >
-          {portfolioData.experience.map((exp, index) => (
+          {experiences.map((exp, index) => (
             <motion.div
               key={exp.id}
               variants={itemVariants}
               className="relative"
             >
               {/* Timeline Line */}
-              {index < portfolioData.experience.length - 1 && (
+              {index < experiences.length - 1 && (
                 <div className="absolute left-6 top-20 w-0.5 h-40 bg-gradient-to-b from-[#6A40E4] to-transparent hidden md:block"></div>
               )}
               
