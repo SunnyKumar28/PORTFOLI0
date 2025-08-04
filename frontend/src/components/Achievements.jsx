@@ -4,9 +4,10 @@ import { Trophy, Award, ExternalLink, Code, Zap, Users, Target } from "lucide-re
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { portfolioData } from "../mock";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
-const Achievements = () => {
+const Achievements = ({ achievements, loading, error, onRetry }) => {
   const getIcon = (type) => {
     switch (type) {
       case "Hackathon":
@@ -65,6 +66,30 @@ const Achievements = () => {
     },
   };
 
+  if (loading) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <LoadingSpinner size="large" text="Loading achievements..." />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <ErrorMessage 
+            error={error} 
+            title="Failed to load achievements" 
+            onRetry={onRetry}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -95,7 +120,7 @@ const Achievements = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 gap-6 mb-16"
         >
-          {portfolioData.achievements.map((achievement, index) => {
+          {achievements.map((achievement, index) => {
             const IconComponent = getIcon(achievement.type);
             const colors = getColor(achievement.type);
             
@@ -250,7 +275,6 @@ const Achievements = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               className="bg-[#6A40E4] hover:bg-[#5A30D4] text-white px-8 py-3 text-lg font-semibold transition-all duration-300 transform hover:scale-105"
-              onClick={() => window.open(portfolioData.personal.linkedin, '_blank')}
             >
               Let's Connect
             </Button>
@@ -258,7 +282,6 @@ const Achievements = () => {
             <Button
               variant="outline"
               className="border-[#6A40E4] text-[#6A40E4] hover:bg-[#6A40E4] hover:text-white px-8 py-3 text-lg font-semibold transition-all duration-300 transform hover:scale-105"
-              onClick={() => window.open(portfolioData.personal.github, '_blank')}
             >
               View GitHub
             </Button>

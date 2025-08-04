@@ -2,14 +2,23 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Heart, Github, Linkedin, Mail, Phone, ExternalLink, ArrowUp } from "lucide-react";
 import { Button } from "./ui/button";
-import { portfolioData } from "../mock";
 
-const Footer = () => {
+const Footer = ({ profile }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const currentYear = new Date().getFullYear();
+
+  // Fallback data if profile is not loaded
+  const personal = profile?.personal || {
+    name: "SUNNY KUMAR",
+    email: "22cs2037@rgipt.ac.in",
+    phone: "+91-6207296068",
+    github: "https://github.com/SunnyKumar28",
+    linkedin: "https://www.linkedin.com/in/sunny-kumar-747b86257/",
+    leetcode: "https://leetcode.com/u/sunny_kumar28/"
+  };
 
   return (
     <footer className="relative bg-[#0A0A0A] border-t border-gray-800/50">
@@ -39,7 +48,7 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-bold text-[#6A40E4]">
-              {portfolioData.personal.name}
+              {personal.name}
             </h3>
             <p className="text-[#E2E2E2]/70 leading-relaxed">
               AI/ML Engineer & Full-Stack Developer passionate about building intelligent 
@@ -97,21 +106,21 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-[#E2E2E2]">Get In Touch</h4>
             <div className="space-y-3">
               <motion.a
-                href={`mailto:${portfolioData.personal.email}`}
+                href={`mailto:${personal.email}`}
                 className="flex items-center space-x-3 text-[#E2E2E2]/70 hover:text-[#6A40E4] transition-colors duration-300"
                 whileHover={{ x: 5 }}
               >
                 <Mail size={18} />
-                <span className="text-sm">{portfolioData.personal.email}</span>
+                <span className="text-sm">{personal.email}</span>
               </motion.a>
               
               <motion.a
-                href={`tel:${portfolioData.personal.phone}`}
+                href={`tel:${personal.phone}`}
                 className="flex items-center space-x-3 text-[#E2E2E2]/70 hover:text-[#6A40E4] transition-colors duration-300"
                 whileHover={{ x: 5 }}
               >
                 <Phone size={18} />
-                <span className="text-sm">{portfolioData.personal.phone}</span>
+                <span className="text-sm">{personal.phone}</span>
               </motion.a>
             </div>
 
@@ -120,9 +129,9 @@ const Footer = () => {
               <h5 className="text-sm font-semibold text-[#E2E2E2] mb-3">Follow Me</h5>
               <div className="flex space-x-3">
                 {[
-                  { icon: Github, url: portfolioData.personal.github, label: "GitHub" },
-                  { icon: Linkedin, url: portfolioData.personal.linkedin, label: "LinkedIn" },
-                  { icon: ExternalLink, url: portfolioData.personal.leetcode, label: "LeetCode" },
+                  { icon: Github, url: personal.github, label: "GitHub" },
+                  { icon: Linkedin, url: personal.linkedin, label: "LinkedIn" },
+                  { icon: ExternalLink, url: personal.leetcode, label: "LeetCode" },
                 ].map((social, index) => {
                   const IconComponent = social.icon;
                   
@@ -158,7 +167,7 @@ const Footer = () => {
           viewport={{ once: true }}
         >
           <div className="text-[#E2E2E2]/60 text-sm text-center md:text-left">
-            <p>© {currentYear} {portfolioData.personal.name}. All rights reserved.</p>
+            <p>© {currentYear} {personal.name}. All rights reserved.</p>
             <p className="mt-1">
               Designed & Developed with modern web technologies
             </p>

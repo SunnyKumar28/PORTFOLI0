@@ -3,59 +3,40 @@ import { motion } from "framer-motion";
 import { Code, Globe, BookOpen, Wrench, Package, BarChart3 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { portfolioData } from "../mock";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorMessage from "./ErrorMessage";
 
-const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      icon: Code,
-      skills: portfolioData.skills.programmingLanguages,
-      color: "text-blue-400",
-      bgColor: "bg-blue-400/10",
-      borderColor: "border-blue-400/20"
-    },
-    {
-      title: "Web Development",
-      icon: Globe,
-      skills: portfolioData.skills.webDevelopment,
-      color: "text-green-400",
-      bgColor: "bg-green-400/10",
-      borderColor: "border-green-400/20"
-    },
-    {
-      title: "Theoretical Skills",
-      icon: BookOpen,
-      skills: portfolioData.skills.theoreticalSkills,
-      color: "text-purple-400",
-      bgColor: "bg-purple-400/10",
-      borderColor: "border-purple-400/20"
-    },
-    {
-      title: "Developer Tools",
-      icon: Wrench,
-      skills: portfolioData.skills.developerTools,
-      color: "text-orange-400",
-      bgColor: "bg-orange-400/10",
-      borderColor: "border-orange-400/20"
-    },
-    {
-      title: "Libraries",
-      icon: Package,
-      skills: portfolioData.skills.libraries,
-      color: "text-red-400",
-      bgColor: "bg-red-400/10",
-      borderColor: "border-red-400/20"
-    },
-    {
-      title: "Data Science",
-      icon: BarChart3,
-      skills: portfolioData.skills.dataScience,
-      color: "text-yellow-400",
-      bgColor: "bg-yellow-400/10",
-      borderColor: "border-yellow-400/20"
+const Skills = ({ skills, loading, error, onRetry }) => {
+  const getIcon = (category) => {
+    switch (category) {
+      case "Programming Languages":
+        return Code;
+      case "Web Development":
+        return Globe;
+      case "Theoretical Skills":
+        return BookOpen;
+      case "Developer Tools":
+        return Wrench;
+      case "Libraries":
+        return Package;
+      case "Data Science":
+        return BarChart3;
+      default:
+        return Code;
     }
-  ];
+  };
+
+  const getColors = (index) => {
+    const colorSchemes = [
+      { color: "text-blue-400", bgColor: "bg-blue-400/10", borderColor: "border-blue-400/20" },
+      { color: "text-green-400", bgColor: "bg-green-400/10", borderColor: "border-green-400/20" },
+      { color: "text-purple-400", bgColor: "bg-purple-400/10", borderColor: "border-purple-400/20" },
+      { color: "text-orange-400", bgColor: "bg-orange-400/10", borderColor: "border-orange-400/20" },
+      { color: "text-red-400", bgColor: "bg-red-400/10", borderColor: "border-red-400/20" },
+      { color: "text-yellow-400", bgColor: "bg-yellow-400/10", borderColor: "border-yellow-400/20" }
+    ];
+    return colorSchemes[index % colorSchemes.length];
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -77,6 +58,30 @@ const Skills = () => {
       },
     },
   };
+
+  if (loading) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]/50">
+        <div className="max-w-7xl mx-auto text-center">
+          <LoadingSpinner size="large" text="Loading skills..." />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]/50">
+        <div className="max-w-7xl mx-auto">
+          <ErrorMessage 
+            error={error} 
+            title="Failed to load skills" 
+            onRetry={onRetry}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A]/50">
@@ -108,12 +113,13 @@ const Skills = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {skillCategories.map((category, index) => {
-            const IconComponent = category.icon;
+          {skills.map((skillCategory, index) => {
+            const IconComponent = getIcon(skillCategory.category);
+            const colors = getColors(index);
             
             return (
               <motion.div
-                key={index}
+                key={skillCategory.id}
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, y: -5 }}
                 className="group"
@@ -121,16 +127,16 @@ const Skills = () => {
                 <Card className="bg-[#1A1A1A]/50 border-gray-800 backdrop-blur-sm hover:bg-[#1A1A1A]/70 transition-all duration-300 h-full">
                   <CardHeader className="pb-4">
                     <CardTitle className="flex items-center text-xl font-bold text-[#E2E2E2] group-hover:text-[#6A40E4] transition-colors duration-300">
-                      <div className={`w-10 h-10 rounded-lg ${category.bgColor} ${category.borderColor} border flex items-center justify-center mr-3`}>
-                        <IconComponent size={20} className={category.color} />
+                      <div className={`w-10 h-10 rounded-lg ${colors.bgColor} ${colors.borderColor} border flex items-center justify-center mr-3`}>
+                        <IconComponent size={20} className={colors.color} />
                       </div>
-                      {category.title}
+                      {skillCategory.category}
                     </CardTitle>
                   </CardHeader>
                   
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill, skillIndex) => (
+                      {skillCategory.skills.map((skill, skillIndex) => (
                         <motion.div
                           key={skillIndex}
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -146,7 +152,7 @@ const Skills = () => {
                         >
                           <Badge 
                             className={`
-                              ${category.bgColor} ${category.color} ${category.borderColor} 
+                              ${colors.bgColor} ${colors.color} ${colors.borderColor} 
                               border hover:scale-105 transition-all duration-200 cursor-default
                               text-xs py-1 px-2
                             `}
