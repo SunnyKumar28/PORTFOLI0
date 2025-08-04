@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the complete portfolio backend API with comprehensive validation of all endpoints, data integrity, and API functionality"
+user_problem_statement: "Test the complete portfolio frontend application with comprehensive validation of UI components, API integration, animations, and responsive design"
 
 backend:
   - task: "Profile API Testing"
