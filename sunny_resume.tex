@@ -1,0 +1,153 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+\geometry{a4paper, margin=0.4in}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[pdftex, colorlinks=true, linkcolor=black, citecolor=black, filecolor=black, urlcolor=black]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{fontawesome}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.375in}
+\addtolength{\evensidemargin}{-0.375in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}
+{\vspace{-6pt}\scshape\raggedright\large}{}{0em}{}[\color{black}\titlerule \vspace{-7pt}]
+
+\newcommand{\resumeItem}[2]{\item\small{\textbf{#1}{ #2 \vspace{-2pt}}}}
+\newcommand{\resumeSubheading}[4]{\vspace{-2pt}\item
+  \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & #2 \\
+    \textit{\small#3} & \textit{\small #4} \\
+  \end{tabular*}\vspace{-8pt}}
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+\renewcommand{\labelitemii}{$\circ$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-7pt}}
+
+\begin{document}
+
+\begin{center}
+\begin{tabular}{c}
+  \textbf{\LARGE SUNNY KUMAR} \\ 
+\end{tabular}
+
+\vspace{3pt}
+
+\begin{tabular}{c}
+   \hspace{2pt}\faEnvelope \ \href{mailto:22cs2037@rgipt.ac.in}{22cs2037@rgipt.ac.in} \hspace{2pt} |
+  \hspace{2pt} \faPhone \ +91-6207296068 \hspace{2pt} |
+  \hspace{2pt} \faGithub \ \href{https://github.com/SunnyKumar28}{SunnyKumar28} \hspace{2pt} |
+  \hspace{2pt} \faLinkedin \ \href{https://www.linkedin.com/in/sunny-kumar-747b86257/}{sunny-kumar-747b86257}
+\end{tabular}
+\end{center}
+
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {RAJIV GANDHI INSTITUTE OF PETROLEUM TECHNOLOGY}{Amethi, Uttar Pradesh}
+    {An Institution of National Importance, akin to the Indian Institutes of Technology (IITs)}{Sep. 2022 - Apr. 2027}     
+    \resumeItemListStart
+      \resumeItem{Integrated Dual Degree - CSE with AI}{(C.G.P.A: 7.9)}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+\section{Experience}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {Infosys Internship}{}
+    {AI-ML}{Oct. 2024 - Dec. 2024}
+    \resumeItemListStart
+      \resumeItem{}{Engineered a \textbf{deep learning chatbot} with \textbf{TensorFlow/Keras}, achieving 92\% accuracy in \textbf{intent classification} across stress, anxiety, and happiness detection. Optimized \textbf{NLP pipelines} using \textbf{LSTM-based models} to process over 10K text samples through efficient \textbf{tokenization}, \textbf{sequence padding}, and \textbf{text preprocessing}.}
+      \resumeItem{}{Developed a secure \textbf{Streamlit} web app with real-time conversation tracking and authentication, integrating \textbf{GPT-4} for fallback responses to enhance response relevance by 35\%, boost system performance by 30\%, and reduce response errors by 25\%.}
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Prodigal AI}{}
+    {AI Intern}{May. 2025 - present}
+    \resumeItemListStart
+      \resumeItem{}{Developed automated form system using \textbf{Python}, \textbf{LLMs}, and \textbf{browser automation} to extract and auto-fill Y Combinator forms with 90\% accuracy.}
+      \resumeItem{}{Leveraged \textbf{RAG}, \textbf{OCR}, and \textbf{document parsing} for accurate data extraction from company PDFs, reducing manual processing time by 80\%.}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+\section{Projects}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {Government Schemes Information Retrieval System| \href{https://github.com/SunnyKumar28/prodigal_task}{\faGithub}}{}
+    {Web Scraping $\vert$ Retrieval-Augmented Generation (RAG)}{Mar. 2025}
+    \resumeItemListStart
+      \resumeItem{Objective:}{Scraped 300+ \textbf{government schemes} from MyScheme.gov.in and engineered an \textbf{AI-powered QnA system} to enable \textbf{natural language querying} using \textbf{RAG} with HuggingFace LLM and FAISS.}
+      \resumeItem{Impact:}{Achieved \textbf{95\% scraping success} for scheme data and delivered \textbf{90\% query accuracy}, reducing \textbf{manual lookup time by 70\%}.}
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Voice Cloning and TTS | \href{https://github.com/bharathgaddam1712/SyndicateSmashers}{\faGithub}}{}
+    {AI Voice Cloning $\vert$ Speech Synthesis $\vert$ Gradio}{Apr. 2025}
+    \resumeItemListStart
+      \resumeItem{Objective:}{Developed an advanced \textbf{text-to-speech system} leveraging \textbf{Qwen2.5} and LLMs for high-quality, \textbf{zero-shot voice cloning} with controllable speech synthesis.}
+      \resumeItem{Impact:}{Designed an intuitive \textbf{Gradio-based UI} for seamless voice cloning interactions. Optimized inference efficiency by \textbf{directly reconstructing audio}, reducing processing time by 30\% and achieving 95\% accuracy in voice characteristics.}
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Plant Disease Detection with Integrated Chatbot| \href{https://github.com/SunnyKumar28/Plant_Disease_Detection}{\faGithub}}{}
+    {TensorFlow $\vert$ Keras $\vert$ CNN $\vert$ Google Gemini API $\vert$ Streamlit}{Oct. 2024}
+    \resumeItemListStart
+      \resumeItem{Objective:}{Utilized \textbf{TensorFlow} and \textbf{Keras} to train \textbf{CNN model} for plant disease detection in real-time, achieving 92\% accuracy and reducing misdiagnoses by 50\%.}
+      \resumeItem{Impact:}{Enhanced user experience by integrating an \textbf{AI chatbot} with \textbf{Google Gemini API} for personalized guidance and multilingual recommendations on disease management, resulting in an 80\% increase in user engagement.}
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Emotion-Driven Text-to-Speech Conversion Web App | \href{https://github.com/SunnyKumar28/Text-to-Speech-and-Emotion-Recognition--App}{\faGithub} | \href{https://text-to-speech-and-emotion-recognition.onrender.com/}{\faLink}}{}
+    {Machine Learning $\vert$ Data Analytics $\vert$ API Integration}{Aug. 2024}
+    \resumeItemListStart
+      \resumeItem{Objective:}{Engineered an interactive web app using \textbf{Streamlit} for real-time emotion recognition and text-to-speech synthesis, improving processing speed by 20\%.}
+      \resumeItem{Impact:}{Integrated Keras models attaining 93\% accuracy in \textbf{text emotion recognition} and 85\% in \textbf{audio emotion detection}, delivering \textbf{emotion-specific voice output via Typecast API}.}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+\section{Skills}
+\begin{tabular}{@{}p{0.45\textwidth}@{\hskip 0.5in}p{0.45\textwidth}@{}}
+\textbf{Programming Languages} & \textbf{Web Development} \\
+C++, Python, JavaScript, HTML5, CSS, MATLAB & React, MongoDB, Node.js, Express, AWS \\
+\textbf{Theoretical Skills} & \textbf{Developer Tools} \\
+Data Structures, Algorithms, OOP, DBMS, Networks & Git/GitHub, Streamlit, Anaconda, VS Code, Linux \\
+\textbf{Libraries} & \textbf{Data Science} \\
+Selenium, NumPy, Pandas, Matplotlib, Browser-Use, Scikit-learn, TensorFlow/Keras, LangGraph, OpenCV, Langchain & Machine Learning, Deep Learning, NLP, LLM, RAG, AI Agents \\
+\end{tabular}
+
+\section{Achievements}
+\begin{itemize}[leftmargin=0.15in, itemsep=0.1em]
+    \item {\small \textbf{DSA:} Solved 400+ problems across platforms like LeetCode, CodeChef (\href{https://leetcode.com/u/sunny_kumar28/}{\faLink}).}
+    \item {\small \textbf{IEEE Hackathon:} Winner of the \textbf{AI Voice Cloning Challenge} hosted by IEEE RGIPT, solving Prodigal AI's problem statement on \textbf{zero-shot voice cloning}.}
+    \item {\small \textbf{GeeksforGeeks Hackathon:} Winner of the \textbf{GFG Student Chapter Hackathon}, creating an AI solution for emotion-based voice analysis.}
+    \item {\small \textbf{SAS Global Hackathon:} Finalist among the top 100 teams in the \textbf{SAS International Hackathon}.}
+\end{itemize}
+
+\end{document} 
